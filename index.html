@@ -81,9 +81,46 @@
         @media (min-width: 768px) {
             .main-background {
                 background-size: cover;
-                /* центрируем по вертикали и выравниваем вправо,
-                   чтобы on-builder справа человек был виден */
                 background-position: center right;
+            }
+            .max-width-block{
+                max-width: 50rem !important;
+            }
+            .grid-block{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                grid-column-gap: 0px;
+                grid-row-gap: 0px;
+            }
+            .div1 { grid-area: 1 / 1 / 2 / 2; }
+            .div2 { grid-area: 1 / 2 / 2 / 3; }
+            .div3 { grid-area: 2 / 1 / 3 / 2; }
+            .div4 { grid-area: 2 / 2 / 3 / 3; }
+            .div5 { grid-area: 3 / 1 / 4 / 3; }
+            .trust-card{
+                padding: 4rem !important;
+            }
+            .grid-benefits{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                grid-column-gap: 0px;
+                grid-row-gap: 0px;
+            }
+            .benefit-card{
+                max-width: 388px;
+            }
+
+            .grid-benefits-item-1 { grid-area: 1 / 1 / 2 / 2; }
+            .grid-benefits-item-2 { grid-area: 1 / 2 / 2 / 3; }
+            .grid-benefits-item-3 { grid-area: 2 / 1 / 3 / 3;
+                margin: 0 auto;
+            }
+            .grid-benefits-item-head{
+                display: flex;
+                flex-direction: column;
+                row-gap: 1rem;
             }
         }
         .main-text{
@@ -128,7 +165,7 @@
 <body class="font-sans bg-gray-50 text-primary">
 <!-- Hero Section -->
 <section class="main-background text-white pt-12 pb-16 px-6">
-    <div class="max-w-md mx-auto main-text">
+    <div class="max-w-md max-width-block mx-auto main-text">
         <div class="flex justify-center mb-6">
             <img src="logo.webp" alt="WAVIoT Logo" class="h-35">
         </div>
@@ -144,12 +181,11 @@
 
 <!-- Benefits Section -->
 <section class="py-12 px-6">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md max-width-block mx-auto">
         <h2 class="text-xl font-bold text-center mb-8">Почему строители выбирают WAVIoT</h2>
-
-        <div class="grid gap-6">
-            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3">
+        <div class="grid grid-benefits gap-6">
+            <div class="benefit-card grid-benefits-item-1 bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3 grid-benefits-item-head">
                     <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
                         <i class="fas fa-bolt text-secondary text-2xl"></i>
                     </div>
@@ -158,8 +194,8 @@
                 <p class="text-gray-600">Готовые решения для быстрого монтажа без простоев на объекте</p>
             </div>
 
-            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3">
+            <div class="benefit-card grid-benefits-item-2 bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3 grid-benefits-item-head">
                     <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
                         <i class="fas fa-file-alt text-secondary text-2xl"></i>
                     </div>
@@ -168,8 +204,8 @@
                 <p class="text-gray-600">Полный комплект документации и BIM-модели для сдачи объекта</p>
             </div>
 
-            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3">
+            <div class="benefit-card grid-benefits-item-3 bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3 grid-benefits-item-head">
                     <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
                         <i class="fas fa-map-marked-alt text-secondary text-2xl"></i>
                     </div>
@@ -183,29 +219,29 @@
 
 <!-- Trust Section -->
 <section class="py-12 px-6 bg-gray-100">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md max-width-block mx-auto">
         <h2 class="text-xl font-bold text-center mb-8">Наши решения уже работают на:</h2>
 
         <div class="grid grid-cols-2 gap-4 mb-8">
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.webp');">
+            <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК Estet</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.webp');">
+            <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК Lumiere</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.webp');">
+            <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">Akbulak Riviera</p>
                     <p class="text-sm text-white">Астана</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.webp');">
+            <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК </p>
                     <p class="text-sm text-white">Шымкент</p>
@@ -222,7 +258,7 @@
 
 <!-- Role-Specific Benefits -->
 <section class="py-12 px-6">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md max-width-block mx-auto">
         <h2 class="text-xl font-bold text-center mb-8">Выгоды для каждой роли в проекте</h2>
 
         <div class="space-y-4">
@@ -250,12 +286,11 @@
 </section>
 
 <section class="py-12 px-6 bg-white">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md max-width-block mx-auto">
         <h2 class="text-xl font-bold text-center mb-8">Спец. проекты</h2>
-
-        <div class="grid gap-6">
+        <div class="grid gap-6 grid-block">
             <!-- Urban Light Management -->
-            <div class="special-project-card bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100 hover:border-blue-300 transition duration-300">
+            <div class="div1 special-project-card bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100 hover:border-blue-300 transition duration-300">
                 <div class="flex items-center mb-3">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
@@ -270,7 +305,7 @@
             </div>
 
             <!-- Water Management -->
-            <div class="special-project-card bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg border border-teal-100 hover:border-teal-300 transition duration-300">
+            <div class="div2 special-project-card bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg border border-teal-100 hover:border-teal-300 transition duration-300">
                 <div class="flex items-center mb-3">
                     <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-water text-teal-600 text-2xl"></i>
@@ -285,7 +320,7 @@
             </div>
 
             <!-- Social Infrastructure -->
-            <div class="special-project-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-100 hover:border-purple-300 transition duration-300">
+            <div class="div3 special-project-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-100 hover:border-purple-300 transition duration-300">
                 <div class="flex items-center mb-3">
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-building text-purple-600 text-2xl"></i>
@@ -300,7 +335,7 @@
             </div>
 
             <!-- Industrial Solutions -->
-            <div class="special-project-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-100 hover:border-orange-300 transition duration-300">
+            <div class="div4 special-project-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-100 hover:border-orange-300 transition duration-300">
                 <div class="flex items-center mb-3">
                     <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-industry text-orange-600 text-2xl"></i>
@@ -315,7 +350,7 @@
             </div>
 
             <!-- Smart Parks -->
-            <div class="special-project-card bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-100 hover:border-green-300 transition duration-300">
+            <div class="div5 special-project-card bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-100 hover:border-green-300 transition duration-300">
                 <div class="flex items-center mb-3">
                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-tree text-green-600 text-2xl"></i>
@@ -397,7 +432,7 @@
 
 <!-- Footer -->
 <footer class="py-8 px-6 bg-gray-900 text-white text-sm">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md max-width-block mx-auto">
         <div class="flex justify-center space-x-6 mb-6">
             <!-- Instagram -->
             <a href="https://www.instagram.com/waviot.asia/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
