@@ -61,7 +61,7 @@
         }
         .main-background {
             background-color: #003366;
-            background-image: url('./background.png');
+            background-image: url('./background.webp');
             background-repeat: no-repeat;
             /* мобильная версия */
             background-size: contain;
@@ -120,6 +120,9 @@
             transform: scale(1.1);
         }
 
+        #modal-content {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-primary">
@@ -127,7 +130,7 @@
 <section class="main-background text-white pt-12 pb-16 px-6">
     <div class="max-w-md mx-auto main-text">
         <div class="flex justify-center mb-6">
-            <img src="logo.png" alt="WAVIoT Logo" class="h-35">
+            <img src="logo.webp" alt="WAVIoT Logo" class="h-35">
         </div>
         <h1 class="text-2xl font-bold text-center mb-4 leading-tight">Заработайте до 1 000 000 ₸ на одном проекте</h1>
         <p class="text-center text-secondary mb-8">С WAVIoT счётчиками воды и света — монтаж за 1 день, полная документация, BIM и поддержка бесплатно</p>
@@ -184,25 +187,25 @@
         <h2 class="text-xl font-bold text-center mb-8">Наши решения уже работают на:</h2>
 
         <div class="grid grid-cols-2 gap-4 mb-8">
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.png');">
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК Estet</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.png');">
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК Lumiere</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.png');">
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">Akbulak Riviera</p>
                     <p class="text-sm text-white">Астана</p>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.png');">
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.webp');">
                 <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
                     <p class="font-bold text-white">ЖК </p>
                     <p class="text-sm text-white">Шымкент</p>
@@ -344,10 +347,12 @@
 
         <form class="space-y-4">
             <div>
-                <input type="text" placeholder="Ваше имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <input type="text" id="name" placeholder="Ваше имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <p id="name-error" class="text-red-300 text-sm mt-1 hidden">Имя должно содержать минимум 3 буквы</p>
             </div>
             <div>
-                <input type="tel" placeholder="Телефон" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <input type="tel" id="phone" placeholder="+7 7__ ___-__-__" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <p id="phone-error" class="text-red-300 text-sm mt-1 hidden">Введите корректный номер телефона Казахстана</p>
             </div>
             <div>
                 <input type="text" placeholder="Название проекта (необязательно)" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
@@ -358,6 +363,37 @@
         </form>
     </div>
 </section>
+
+<!-- Success Modal -->
+<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl max-w-md w-full mx-auto transform scale-0 opacity-0 transition-all duration-300" id="modal-content">
+        <div class="p-8 text-center">
+            <div class="mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-2">Спасибо за заявку!</h3>
+                <p class="text-gray-600 mb-6">Ваша заявка успешно отправлена. Наш менеджер свяжется с вами в скором времени.</p>
+
+                <div class="inline-flex items-center text-sm text-gray-500 mb-6">
+                    <i class="fas fa-clock mr-2"></i>
+                    <span>Время работы: Пн-Пт 9:00-18:00</span>
+                </div>
+            </div>
+
+            <button onclick="closeModal()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition duration-300 mb-4">
+                Закрыть
+            </button>
+
+            <p class="text-sm text-gray-400">
+                А пока вы можете:
+                <a href="https://api.whatsapp.com/send?phone=77011888100" target="_blank" class="text-secondary hover:underline ml-1">написать нам в WhatsApp</a>
+            </p>
+        </div>
+    </div>
+</div>
 
 <!-- Footer -->
 <footer class="py-8 px-6 bg-gray-900 text-white text-sm">
@@ -407,11 +443,175 @@
 </div>
 
 <script>
-    // Simple form submission handler
+    // Phone mask for Kazakhstan
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phone');
+        const nameInput = document.getElementById('name');
+        const nameError = document.getElementById('name-error');
+        const phoneError = document.getElementById('phone-error');
+
+        // Name validation - теперь поддерживает кириллицу и казахские буквы
+        function validateName(name) {
+            const trimmedName = name.trim();
+            // Поддержка русского и казахского алфавита
+            const letterCount = (trimmedName.match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
+            return letterCount >= 3;
+        }
+
+        nameInput.addEventListener('input', function() {
+            // Удаляем цифры и спецсимволы, но оставляем все буквы, включая казахские
+            this.value = this.value.replace(/[0-9!@#$%^&*(),.?":{}|<>_+=~`[\]\\/-]/g, '');
+
+            if (this.value.length > 0 && !validateName(this.value)) {
+                nameError.classList.remove('hidden');
+                this.classList.add('border-red-300');
+            } else {
+                nameError.classList.add('hidden');
+                this.classList.remove('border-red-300');
+            }
+        });
+
+        // Phone validation - проверяем, что это именно казахстанский номер
+        function validatePhone(phone) {
+            const cleanPhone = phone.replace(/\D/g, '');
+            // Проверяем, что номер начинается с 7 и имеет 11 цифр (казахстанский формат)
+            // И что цифра после 7 - это 7, 6, 5, 3, 1 (коды операторов Казахстана)
+            const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78'];
+            const operatorCode = cleanPhone.substring(0, 2);
+            return cleanPhone.length === 11 && cleanPhone.startsWith('7') && kazOperatorCodes.includes(operatorCode);
+        }
+
+        phoneInput.addEventListener('focus', function() {
+            if (!this.value) {
+                this.value = '+7 ';
+            }
+        });
+
+        phoneInput.addEventListener('input', function() {
+            let value = this.value;
+            value = value.replace(/[^\d+]/g, '');
+
+            if (value.length < 2) {
+                value = '+7';
+            }
+
+            if (!value.startsWith('+7')) {
+                value = '+7' + value.replace(/^[+]?7*/g, '');
+            }
+
+            let formattedValue = '+7 ';
+            let numbers = value.slice(2);
+
+            if (numbers.length > 0) {
+                formattedValue += numbers.slice(0, 3);
+            }
+            if (numbers.length > 3) {
+                formattedValue += ' ' + numbers.slice(3, 6);
+            }
+            if (numbers.length > 6) {
+                formattedValue += '-' + numbers.slice(6, 8);
+            }
+            if (numbers.length > 8) {
+                formattedValue += '-' + numbers.slice(8, 10);
+            }
+
+            this.value = formattedValue;
+
+            if (!validatePhone(formattedValue)) {
+                phoneError.classList.remove('hidden');
+                this.classList.add('border-red-300');
+            } else {
+                phoneError.classList.add('hidden');
+                this.classList.remove('border-red-300');
+            }
+        });
+
+        phoneInput.addEventListener('keydown', function(e) {
+            if ((e.key === 'Backspace' || e.key === 'Delete') && this.value.length <= 3) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Show success modal
+    function showSuccessModal() {
+        const modal = document.getElementById('success-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+
+        setTimeout(() => {
+            modalContent.classList.remove('scale-0');
+            modalContent.classList.remove('opacity-0');
+            modalContent.classList.add('scale-100');
+            modalContent.classList.add('opacity-100');
+        }, 10);
+    }
+
+    // Close modal
+    function closeModal() {
+        const modal = document.getElementById('success-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.remove('opacity-100');
+        modalContent.classList.add('scale-0');
+        modalContent.classList.add('opacity-0');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
+    }
+
+    document.getElementById('success-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    // Form submission handler with validation
     document.querySelector('form').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
-        this.reset();
+
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const nameError = document.getElementById('name-error');
+        const phoneError = document.getElementById('phone-error');
+
+        let isValid = true;
+
+        // Validate name
+        const letterCount = (nameInput.value.trim().match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
+        if (letterCount < 3) {
+            nameError.classList.remove('hidden');
+            nameInput.classList.add('border-red-300');
+            isValid = false;
+        } else {
+            nameError.classList.add('hidden');
+            nameInput.classList.remove('border-red-300');
+        }
+
+        // Validate phone
+        const cleanPhone = phoneInput.value.replace(/\D/g, '');
+        const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78'];
+        const operatorCode = cleanPhone.substring(0, 2);
+
+        if (cleanPhone.length !== 11 || !cleanPhone.startsWith('7') || !kazOperatorCodes.includes(operatorCode)) {
+            phoneError.classList.remove('hidden');
+            phoneInput.classList.add('border-red-300');
+            isValid = false;
+        } else {
+            phoneError.classList.add('hidden');
+            phoneInput.classList.remove('border-red-300');
+        }
+
+        if (isValid) {
+            showSuccessModal();
+            this.reset();
+            phoneInput.value = '';
+        }
     });
 </script>
 </body>
