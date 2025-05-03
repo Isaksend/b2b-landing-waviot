@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAVIoT - Умные счётчики для строительных проектов</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#003366',
+                        secondary: '#4BA5F6',
+                        accent: '#00E676',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            box-shadow: 0 10px 25px -5px rgba(0, 198, 204, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .benefit-card {
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .role-card {
+            border-left: 4px solid #00C4CC;
+        }
+        form button, .link-form{
+            background-color: #4BA5F6;
+        }
+        .main-background {
+            background-color: #003366;
+            background-image: url('./background.png');
+            background-repeat: no-repeat;
+            /* мобильная версия */
+            background-size: contain;
+            background-position: center top;
+            min-height: 100vh; /* чтобы фон всегда занимал весь экран */
+        }
+
+        .icon_item{
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* для экранов шире 768px (десктоп) */
+        @media (min-width: 768px) {
+            .main-background {
+                background-size: cover;
+                /* центрируем по вертикали и выравниваем вправо,
+                   чтобы on-builder справа человек был виден */
+                background-position: center right;
+            }
+        }
+        .main-text{
+            background-color: rgba(0,0,0, 0.5);
+            padding: 4rem;
+            border-radius: 15px;
+        }
+        @media (max-width: 769px) {
+            .main-text {
+                background-color: rgba(0, 0, 0, 0);
+                padding: 0;
+                border-radius: 0;
+            }
+            .main-background{
+                min-height: 75vh;
+            }
+        }
+
+        .special-project-card {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .special-project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .special-project-card i {
+            transition: transform 0.3s ease;
+        }
+
+        .special-project-card:hover i {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-primary">
+<!-- Hero Section -->
+<section class="main-background text-white pt-12 pb-16 px-6">
+    <div class="max-w-md mx-auto main-text">
+        <div class="flex justify-center mb-6">
+            <img src="logo.png" alt="WAVIoT Logo" class="h-35">
+        </div>
+        <h1 class="text-2xl font-bold text-center mb-4 leading-tight">Заработайте до 1 000 000 ₸ на одном проекте</h1>
+        <p class="text-center text-secondary mb-8">С WAVIoT счётчиками воды и света — монтаж за 1 день, полная документация, BIM и поддержка бесплатно</p>
+        <div class="text-center">
+            <a href="#form-section" class="link-form text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
+                Оставить заявку
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="py-12 px-6">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold text-center mb-8">Почему строители выбирают WAVIoT</h2>
+
+        <div class="grid gap-6">
+            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3">
+                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                        <i class="fas fa-bolt text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold">Монтаж за 1 день</h3>
+                </div>
+                <p class="text-gray-600">Готовые решения для быстрого монтажа без простоев на объекте</p>
+            </div>
+
+            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3">
+                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                        <i class="fas fa-file-alt text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold">Все документы, BIM, техподдержка — бесплатно</h3>
+                </div>
+                <p class="text-gray-600">Полный комплект документации и BIM-модели для сдачи объекта</p>
+            </div>
+
+            <div class="benefit-card bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-3">
+                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                        <i class="fas fa-map-marked-alt text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold">Работаем с застройщиками по всей стране</h3>
+                </div>
+                <p class="text-gray-600">50+ объектов уже используют наши решения</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Section -->
+<section class="py-12 px-6 bg-gray-100">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold text-center mb-8">Наши решения уже работают на:</h2>
+
+        <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.png');">
+                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                    <p class="font-bold text-white">ЖК Estet</p>
+                    <p class="text-sm text-white">Алматы</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.png');">
+                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                    <p class="font-bold text-white">ЖК Lumiere</p>
+                    <p class="text-sm text-white">Алматы</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.png');">
+                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                    <p class="font-bold text-white">Akbulak Riviera</p>
+                    <p class="text-sm text-white">Астана</p>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.png');">
+                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                    <p class="font-bold text-white">ЖК </p>
+                    <p class="text-sm text-white">Шымкент</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <p class="text-lg font-semibold mb-2">50+ объектов по РК уже с WAVIoT</p>
+            <p class="text-gray-600">Присоединяйтесь к лидерам строительного рынка</p>
+        </div>
+    </div>
+</section>
+
+<!-- Role-Specific Benefits -->
+<section class="py-12 px-6">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold text-center mb-8">Выгоды для каждой роли в проекте</h2>
+
+        <div class="space-y-4">
+            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
+                <h3 class="font-bold text-secondary mb-2">Для технадзора</h3>
+                <p class="text-gray-600">Закроете акты без замечаний с полным комплектом документов</p>
+            </div>
+
+            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
+                <h3 class="font-bold text-secondary mb-2">Для снабженца</h3>
+                <p class="text-gray-600">Без тендеров, без задержек — всё по прайсу с гарантией поставки</p>
+            </div>
+
+            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
+                <h3 class="font-bold text-secondary mb-2">Для ГИП</h3>
+                <p class="text-gray-600">BIM-модели и комплектность по ТЗ для идеальной сдачи проекта</p>
+            </div>
+
+            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
+                <h3 class="font-bold text-secondary mb-2">Для энергетиков</h3>
+                <p class="text-gray-600">Точный учёт и автоматизированные отчёты по энергопотреблению</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 px-6 bg-white">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold text-center mb-8">Спец. проекты</h2>
+
+        <div class="grid gap-6">
+            <!-- Urban Light Management -->
+            <div class="special-project-card bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100 hover:border-blue-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Система управления городским освещением</h3>
+                </div>
+                <p class="text-gray-600 mb-3">Автоматизация включения/выключения уличных фонарей, контроль энергопотребления, аналитика по освещённости улиц</p>
+                <div class="flex items-center text-sm text-blue-600">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <span>Экономия до 40% электроэнергии</span>
+                </div>
+            </div>
+
+            <!-- Water Management -->
+            <div class="special-project-card bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg border border-teal-100 hover:border-teal-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-water text-teal-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Умный учёт воды в жилых комплексах</h3>
+                </div>
+                <p class="text-gray-600 mb-3">Индивидуальные счётчики с дистанционным снятием показаний, обнаружение утечек, контроль давления</p>
+                <div class="flex items-center text-sm text-teal-600">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    <span>Определение протечек за 60 секунд</span>
+                </div>
+            </div>
+
+            <!-- Social Infrastructure -->
+            <div class="special-project-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-100 hover:border-purple-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-building text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Социальные объекты</h3>
+                </div>
+                <p class="text-gray-600 mb-3">Мониторинг школ, больниц, детских садов - температура, влажность, качество воздуха, потребление ресурсов</p>
+                <div class="flex items-center text-sm text-purple-600">
+                    <i class="fas fa-clipboard-check mr-2"></i>
+                    <span>Соответствие СанПиН и ГОСТам</span>
+                </div>
+            </div>
+
+            <!-- Industrial Solutions -->
+            <div class="special-project-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-100 hover:border-orange-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-industry text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Промышленные объекты</h3>
+                </div>
+                <p class="text-gray-600 mb-3">Учёт энергоресурсов на производстве, контроль промышленного оборудования, оптимизация энергопотребления</p>
+                <div class="flex items-center text-sm text-orange-600">
+                    <i class="fas fa-cogs mr-2"></i>
+                    <span>24/7 мониторинг производственных линий</span>
+                </div>
+            </div>
+
+            <!-- Smart Parks -->
+            <div class="special-project-card bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-100 hover:border-green-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-tree text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Умные парки и зоны отдыха</h3>
+                </div>
+                <p class="text-gray-600 mb-3">Автоматический полив, освещение, Wi-Fi зоны, системы видеонаблюдения, контроль посещаемости</p>
+                <div class="flex items-center text-sm text-green-600">
+                    <i class="fas fa-leaf mr-2"></i>
+                    <span>Экологические системы управления</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <p class="text-gray-600 mb-4">Нужно индивидуальное решение для вашего проекта?</p>
+            <a href="#form-section" class="inline-block bg-secondary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition duration-300">
+                Обсудить проект
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Form Section -->
+<section class="py-12 px-6 bg-primary text-white" id="form-section">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold text-center mb-2">Получите расчёт под ваш объект</h2>
+        <p class="text-center text-secondary mb-8">Оставьте контакты, и наш менеджер свяжется с вами в ближайшее время</p>
+
+        <form class="space-y-4">
+            <div>
+                <input type="text" placeholder="Ваше имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+            </div>
+            <div>
+                <input type="tel" placeholder="Телефон" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+            </div>
+            <div>
+                <input type="text" placeholder="Название проекта (необязательно)" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+            </div>
+            <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02]">
+                Оставить заявку
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 px-6 bg-gray-900 text-white text-sm">
+    <div class="max-w-md mx-auto">
+        <div class="flex justify-center space-x-6 mb-6">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/waviot.asia/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+                <i class="fab fa-instagram text-xl cursor-pointer"></i>
+            </a>
+            <!-- WhatsApp -->
+            <a href="https://api.whatsapp.com/send?phone=77011888100" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+                <i class="fab fa-whatsapp text-xl cursor-pointer"></i>
+            </a>
+            <!-- Telegram -->
+            <a href="https://web.telegram.org/k/#@hwylisback" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+                <i class="fab fa-telegram text-xl cursor-pointer"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+                <p class="font-semibold mb-2">Контакты</p>
+                <p class="text-gray-400">+7 700 100 75 60</p>
+                <p class="text-gray-400">sales@waviot.kz</p>
+            </div>
+            <div>
+                <p class="font-semibold mb-2">Адрес</p>
+                <p class="text-gray-400">
+                    г. Астана, ул. Мәңгілік Ел, 55/16 (здание МФЦА),
+                    Блок С 3.1, Каб. 318
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center text-gray-500">
+            <p>© 2025 WAVIoT. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Sticky CTA Button -->
+<div class="sticky-cta">
+    <button onclick="document.querySelector('form').scrollIntoView({behavior: 'smooth'})" class="bg-secondary hover:bg-teal-400 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 flex items-center">
+        <i class="fas fa-phone-alt mr-2"></i>
+        <span>Получить консультацию</span>
+    </button>
+</div>
+
+<script>
+    // Simple form submission handler
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+        this.reset();
+    });
+</script>
+</body>
+</html>
