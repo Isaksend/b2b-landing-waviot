@@ -666,11 +666,13 @@
                     },
                     mode: 'no-cors',
                     body: JSON.stringify({
-                        name: "Test User",
-                        phone: "+7700123456",
+                        name: "Test Name",
+                        phone: "+77777777777",
                         comment: "Test comment"
                     })
-                });
+                }).then(response => response.json())
+                    .then(data => console.log('Response:', data))
+                    .catch(error => console.error('Error:', error));
 
                 const result = await response.json();
 
