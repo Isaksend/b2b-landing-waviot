@@ -607,24 +607,23 @@
         }
     });
 
-    // Обновленный обработчик отправки формы с использованием надежного CORS-прокси
-    document.querySelector('form').addEventListener('submit', async function(e) {
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const nameInput = document.getElementById('name');
         const phoneInput = document.getElementById('phone');
+        const commentInput = document.getElementById('comment');
         const nameError = document.getElementById('name-error');
         const phoneError = document.getElementById('phone-error');
 
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const comment = document.getElementById('comment').value.trim();
-        const form_type = window.innerWidth > 768 ? 'desktop' : 'mobile';
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const comment = commentInput.value.trim();
 
         let isValid = true;
 
         // Валидация имени
-        const letterCount = (nameInput.value.trim().match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
+        const letterCount = (name.match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
         if (letterCount < 3) {
             nameError.classList.remove('hidden');
             nameInput.classList.add('border-red-300');
@@ -635,7 +634,7 @@
         }
 
         // Валидация телефона
-        const cleanPhone = phoneInput.value.replace(/\D/g, '');
+        const cleanPhone = phone.replace(/\D/g, '');
         const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78'];
         const operatorCode = cleanPhone.substring(0, 2);
 
@@ -649,41 +648,69 @@
         }
 
         if (isValid) {
+            // Показываем состояние загрузки (можно добавить индикатор)
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = 'Отправка...';
+            submitButton.disabled = true;
+
             try {
-                // Формируем данные для отправки на backend
+                // Подготовка данных для отправки
                 const payload = {
-                    name,
-                    phone,
-                    comment,
+                    name: name,
+                    phone: phone,
+                    comment: comment
                 };
 
-                // Отправляем данные на свой backend
-                const response = await fetch('http://localhost:9000/api/amocrm/b2b-lead', {
+                console.log('Отправляемые данные:', payload);
+
+                // Замените URL на адрес вашего сервера (для продакшена)
+                const apiUrl = 'http://localhost:9000/api/amocrm/b2b-lead';
+                // const apiUrl = 'https://ваш-сервер.com/api/amocrm/b2b-lead';
+
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    mode: 'no-cors',
                     body: JSON.stringify(payload)
-                }).then(response => response.json())
-                    .then(data => console.log('Response:', data))
-                    .catch(error => console.error('Error:', error));
+                });
 
-                const result = await response.json();
+                console.log('Статус ответа:', response.status);
+
+                // Получаем и обрабатываем ответ
+                const responseText = await response.text();
+                console.log('Ответ сервера:', responseText);
+
+                let result;
+                try {
+                    if (responseText) {
+                        result = JSON.parse(responseText);
+                    } else {
+                        throw new Error('Пустой ответ от сервера');
+                    }
+                } catch (e) {
+                    console.error('Ошибка парсинга ответа:', e);
+                    throw new Error('Не удалось обработать ответ сервера');
+                }
 
                 if (result.success) {
-                    showSuccessModal();
+                    // Показываем сообщение об успехе (можно заменить на модальное окно)
+                    showSuccessModal()
+                    // Сбрасываем форму
                     this.reset();
                 } else {
-                    console.error('Ошибка при отправке:', result.message);
-                    alert('Ошибка при отправке уведомления. Пожалуйста, попробуйте позже.');
+                    throw new Error(result.message || 'Ошибка при отправке заявки');
                 }
             } catch (err) {
-                console.error('Ошибка при запросе:', err);
-                alert('Произошла ошибка. Попробуйте позже.');
+                console.error('Ошибка:', err);
+                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.');
+            } finally {
+                // Возвращаем кнопку в исходное состояние
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
             }
         }
-
     });
 
 
