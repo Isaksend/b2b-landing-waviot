@@ -665,8 +665,7 @@
                 console.log('Отправляемые данные:', payload);
 
                 // Замените URL на адрес вашего сервера (для продакшена)
-                const apiUrl = 'http://localhost:9000/api/amocrm/b2b-lead';
-                // const apiUrl = 'https://ваш-сервер.com/api/amocrm/b2b-lead';
+                const apiUrl = 'https://waviot-b2b-backend.railway.internal/api/amocrm/b2b-lead';
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -712,8 +711,6 @@
             }
         }
     });
-
-
 </script>
 </body>
 </html>
