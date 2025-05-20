@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAVIoT - Умные счётчики для строительных проектов</title>
+    <title>WAVIoT - IoT-решения для инфраструктурных проектов</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
     <script>
         tailwind.config = {
             theme: {
@@ -61,12 +62,10 @@
         }
         .main-background {
             background-color: #003366;
-            background-image: url('./background.webp');
-            background-repeat: no-repeat;
-            /* мобильная версия */
-            background-size: contain;
-            background-position: center top;
-            min-height: 100vh; /* чтобы фон всегда занимал весь экран */
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(0, 51, 102, 0.8)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80');
+            background-size: cover;
+            background-position: center;
         }
 
         .icon_item{
@@ -81,7 +80,8 @@
         @media (min-width: 768px) {
             .main-background {
                 background-size: cover;
-                background-position: center right;
+                min-height: 50vh;
+                max-height: none;
             }
             .max-width-block{
                 max-width: 50rem !important;
@@ -125,17 +125,24 @@
         }
         .main-text{
             background-color: rgba(0,0,0, 0.5);
-            padding: 4rem;
+            padding: 2rem;
             border-radius: 15px;
+            backdrop-filter: blur(4px);
         }
         @media (max-width: 769px) {
             .main-text {
-                background-color: rgba(0, 0, 0, 0);
-                padding: 0;
-                border-radius: 0;
+                background-color: rgba(0, 0, 0, 0.3);
+                padding: 1rem;
+                border-radius: 10px;
             }
             .main-background{
-                min-height: 75vh;
+                min-height: auto;
+                padding-bottom: 2rem;
+            }
+            .advantage-item {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 10px;
             }
         }
 
@@ -160,59 +167,204 @@
         #modal-content {
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .advantage-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            background-color: rgba(75, 165, 246, 0.2);
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .trust-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .trust-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .trust-card:hover::before {
+            opacity: 0.9;
+        }
+
+        .trust-card:hover {
+            transform: scale(1.03);
+        }
+
+        .section-heading {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #4BA5F6;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-primary">
 <!-- Hero Section -->
-<section class="main-background text-white pt-12 pb-16 px-6">
-    <div class="max-w-md max-width-block mx-auto main-text">
+<section class="bg-primary text-white pt-8 md:pt-12 pb-12 md:pb-16 px-4 md:px-6 relative">
+    <!-- Градиент фона -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary to-blue-900 opacity-80"></div>
+    <!-- Декоративные элементы -->
+    <div class="absolute inset-0 overflow-hidden">
+        <svg class="absolute top-0 left-0 w-full h-full opacity-5" viewBox="0 0 800 800">
+            <path d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63" stroke="#4BA5F6" stroke-width="100" fill="none"></path>
+        </svg>
+    </div>
+
+    <div class="max-w-md mx-auto md:max-w-4xl relative z-10">
         <div class="flex justify-center mb-6">
-            <img src="logo.webp" alt="WAVIoT Logo" class="h-35">
+            <img src="logo.webp" alt="WAVIoT Logo" class="h-24 md:h-32">
         </div>
-        <h1 class="text-2xl font-bold text-center mb-4 leading-tight">Заработайте до 1 000 000 ₸ на одном проекте</h1>
-        <p class="text-center text-secondary mb-8">С WAVIoT счётчиками воды и света — монтаж за 1 день, полная документация, BIM и поддержка бесплатно</p>
+
+        <div class="text-center mb-8 md:mb-10">
+            <h1 class="text-xl md:text-4xl font-bold mb-3 md:mb-4 leading-tight">IoT-решения под задачи вашего инфраструктурного проекта</h1>
+            <p class="text-secondary text-base md:text-lg">Подберем и адаптируем решения с учетом бюджета и технических требований</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-10">
+            <div class="flex items-start p-3 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-300">
+                <div class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-handshake text-secondary text-sm md:text-base"></i>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base">Сопровождение на всех этапах: от консультации до внедрения</span>
+                </div>
+            </div>
+
+            <div class="flex items-start p-3 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-300">
+                <div class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-building text-secondary text-sm md:text-base"></i>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base">Подходит для объектов ЖКХ, ЖК, муниципальной и промышленной инфраструктуры</span>
+                </div>
+            </div>
+
+            <div class="flex items-start p-3 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-300">
+                <div class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-clock text-secondary text-sm md:text-base"></i>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base">Экономия времени на сборе данных и отчетности</span>
+                </div>
+            </div>
+
+            <div class="flex items-start p-3 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-300">
+                <div class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-chart-line text-secondary text-sm md:text-base"></i>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base">Анализ потребления, прогноз нагрузки и поддержка цифрового моделирования объектов</span>
+                </div>
+            </div>
+
+            <div class="flex items-start p-3 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-300 md:col-span-2">
+                <div class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-map-marker-alt text-secondary text-sm md:text-base"></i>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base">Опыт реализации более чем на 50 объектах в Казахстане</span>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center">
-            <a href="#form-section" class="link-form text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
-                Оставить заявку
+            <a href="#form-section" class="bg-secondary text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 text-sm md:text-lg shadow-lg inline-block w-full md:w-auto">
+                Обсудить проект с инженером WAVIoT
             </a>
         </div>
     </div>
 </section>
 
-<!-- Benefits Section -->
-<section class="py-12 px-6">
+<!-- Automation Scenarios Section -->
+<section class="py-12 px-6 bg-white">
     <div class="max-w-md max-width-block mx-auto">
-        <h2 class="text-xl font-bold text-center mb-8">Почему строители выбирают WAVIoT</h2>
-        <div class="grid grid-benefits gap-6">
-            <div class="benefit-card grid-benefits-item-1 bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3 grid-benefits-item-head">
-                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
-                        <i class="fas fa-bolt text-secondary text-2xl"></i>
+        <h2 class="text-xl font-bold text-center section-heading">Расширьте контроль и снизьте ручной труд</h2>
+
+        <div class="grid gap-6 grid-block">
+            <!-- Lighting -->
+            <div class="div1 special-project-card bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100 hover:border-blue-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
                     </div>
-                    <h3 class="font-bold">Монтаж за 1 день</h3>
+                    <h3 class="font-bold text-lg">Освещение общественных пространств</h3>
                 </div>
-                <p class="text-gray-600">Готовые решения для быстрого монтажа без простоев на объекте</p>
+                <p class="text-gray-600 mb-3">Базовая автоматизация и контроль времени включения/выключения</p>
+                <div class="flex items-center text-sm text-blue-600">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    <span>Экономия до 40% электроэнергии</span>
+                </div>
             </div>
 
-            <div class="benefit-card grid-benefits-item-2 bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3 grid-benefits-item-head">
-                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
-                        <i class="fas fa-file-alt text-secondary text-2xl"></i>
+            <!-- Social Institutions -->
+            <div class="div2 special-project-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-100 hover:border-purple-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-building text-purple-600 text-2xl"></i>
                     </div>
-                    <h3 class="font-bold">Все документы, BIM, техподдержка — бесплатно</h3>
+                    <h3 class="font-bold text-lg">Социальные учреждения и ЖКХ</h3>
                 </div>
-                <p class="text-gray-600">Полный комплект документации и BIM-модели для сдачи объекта</p>
+                <p class="text-gray-600 mb-3">Базовый мониторинг микроклимата и состояния оборудования</p>
+                <div class="flex items-center text-sm text-purple-600">
+                    <i class="fas fa-clipboard-check mr-2"></i>
+                    <span>Соответствие СанПиН и ГОСТам</span>
+                </div>
             </div>
 
-            <div class="benefit-card grid-benefits-item-3 bg-white p-6 rounded-lg shadow-md">
-                <div class="flex items-center mb-3 grid-benefits-item-head">
-                    <div class="icon_item bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
-                        <i class="fas fa-map-marked-alt text-secondary text-2xl"></i>
+            <!-- Industrial Objects -->
+            <div class="div3 special-project-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-100 hover:border-orange-300 transition duration-300">
+                <div class="flex items-center mb-3">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-industry text-orange-600 text-2xl"></i>
                     </div>
-                    <h3 class="font-bold">Работаем с застройщиками по всей стране</h3>
+                    <h3 class="font-bold text-lg">Промышленные объекты</h3>
                 </div>
-                <p class="text-gray-600">50+ объектов уже используют наши решения</p>
+                <p class="text-gray-600 mb-3">Сбор показаний, визуализация нагрузок, уведомления о превышении</p>
+                <div class="flex items-center text-sm text-orange-600">
+                    <i class="fas fa-cogs mr-2"></i>
+                    <span>24/7 мониторинг производственных линий</span>
+                </div>
             </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="#form-section" class="inline-block bg-secondary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition duration-300 shadow-md">
+                Запросить пример расчета под ваш объект
+            </a>
         </div>
     </div>
 </section>
@@ -220,155 +372,45 @@
 <!-- Trust Section -->
 <section class="py-12 px-6 bg-gray-100">
     <div class="max-w-md max-width-block mx-auto">
-        <h2 class="text-xl font-bold text-center mb-8">Наши решения уже работают на:</h2>
+        <h2 class="text-xl font-bold text-center section-heading">Нам доверяют реальные проекты</h2>
+        <p class="text-center text-gray-600 mb-8">Технологии WAVIoT внедрены в ряде ЖК и объектов коммунального сектора</p>
 
         <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_1.webp');">
-                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                <div class="relative z-10 bg-black bg-opacity-60 p-3 rounded absolute bottom-4 left-4 right-4">
                     <p class="font-bold text-white">ЖК Estet</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
             <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_2.webp');">
-                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                <div class="relative z-10 bg-black bg-opacity-60 p-3 rounded absolute bottom-4 left-4 right-4">
                     <p class="font-bold text-white">ЖК Lumiere</p>
                     <p class="text-sm text-white">Алматы</p>
                 </div>
             </div>
             <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_3.webp');">
-                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
+                <div class="relative z-10 bg-black bg-opacity-60 p-3 rounded absolute bottom-4 left-4 right-4">
                     <p class="font-bold text-white">Akbulak Riviera</p>
                     <p class="text-sm text-white">Астана</p>
                 </div>
             </div>
             <div class="trust-card bg-white p-8 rounded-lg text-center shadow-sm relative overflow-hidden bg-cover bg-center" style="background-image: url('assets/item_4.webp');">
-                <div class="relative z-10 bg-black bg-opacity-50 p-2 rounded">
-                    <p class="font-bold text-white">ЖК </p>
+                <div class="relative z-10 bg-black bg-opacity-60 p-3 rounded absolute bottom-4 left-4 right-4">
+                    <p class="font-bold text-white">ЖК</p>
                     <p class="text-sm text-white">Шымкент</p>
                 </div>
             </div>
         </div>
 
+        <div class="text-center bg-white p-6 rounded-lg shadow-sm mb-8">
+            <p class="text-lg font-semibold mb-2">В некоторых случаях достигнута экономия до 25%</p>
+            <div class="w-16 h-1 bg-secondary mx-auto my-3 rounded-full"></div>
+            <p class="text-gray-600">Внедрение IoT-решений значительно повышает эффективность использования ресурсов</p>
+        </div>
+
         <div class="text-center">
-            <p class="text-lg font-semibold mb-2">50+ объектов по РК уже с WAVIoT</p>
-            <p class="text-gray-600">Присоединяйтесь к лидерам строительного рынка</p>
-        </div>
-    </div>
-</section>
-
-<!-- Role-Specific Benefits -->
-<section class="py-12 px-6">
-    <div class="max-w-md max-width-block mx-auto">
-        <h2 class="text-xl font-bold text-center mb-8">Выгоды для каждой роли в проекте</h2>
-
-        <div class="space-y-4">
-            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
-                <h3 class="font-bold text-secondary mb-2">Для технадзора</h3>
-                <p class="text-gray-600">Закроете акты без замечаний с полным комплектом документов</p>
-            </div>
-
-            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
-                <h3 class="font-bold text-secondary mb-2">Для снабженца</h3>
-                <p class="text-gray-600">Без тендеров, без задержек — всё по прайсу с гарантией поставки</p>
-            </div>
-
-            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
-                <h3 class="font-bold text-secondary mb-2">Для ГИП</h3>
-                <p class="text-gray-600">BIM-модели и комплектность по ТЗ для идеальной сдачи проекта</p>
-            </div>
-
-            <div class="role-card bg-white p-5 rounded-lg shadow-sm">
-                <h3 class="font-bold text-secondary mb-2">Для энергетиков</h3>
-                <p class="text-gray-600">Точный учёт и автоматизированные отчёты по энергопотреблению</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-12 px-6 bg-white">
-    <div class="max-w-md max-width-block mx-auto">
-        <h2 class="text-xl font-bold text-center mb-8">Спец. проекты</h2>
-        <div class="grid gap-6 grid-block">
-            <!-- Urban Light Management -->
-            <div class="div1 special-project-card bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100 hover:border-blue-300 transition duration-300">
-                <div class="flex items-center mb-3">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-lightbulb text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg">Система управления городским освещением</h3>
-                </div>
-                <p class="text-gray-600 mb-3">Автоматизация включения/выключения уличных фонарей, контроль энергопотребления, аналитика по освещённости улиц</p>
-                <div class="flex items-center text-sm text-blue-600">
-                    <i class="fas fa-chart-line mr-2"></i>
-                    <span>Экономия до 40% электроэнергии</span>
-                </div>
-            </div>
-
-            <!-- Water Management -->
-            <div class="div2 special-project-card bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-lg border border-teal-100 hover:border-teal-300 transition duration-300">
-                <div class="flex items-center mb-3">
-                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-water text-teal-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg">Умный учёт воды в жилых комплексах</h3>
-                </div>
-                <p class="text-gray-600 mb-3">Индивидуальные счётчики с дистанционным снятием показаний, обнаружение утечек, контроль давления</p>
-                <div class="flex items-center text-sm text-teal-600">
-                    <i class="fas fa-shield-alt mr-2"></i>
-                    <span>Определение протечек за 60 секунд</span>
-                </div>
-            </div>
-
-            <!-- Social Infrastructure -->
-            <div class="div3 special-project-card bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-100 hover:border-purple-300 transition duration-300">
-                <div class="flex items-center mb-3">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-building text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg">Социальные объекты</h3>
-                </div>
-                <p class="text-gray-600 mb-3">Мониторинг школ, больниц, детских садов - температура, влажность, качество воздуха, потребление ресурсов</p>
-                <div class="flex items-center text-sm text-purple-600">
-                    <i class="fas fa-clipboard-check mr-2"></i>
-                    <span>Соответствие СанПиН и ГОСТам</span>
-                </div>
-            </div>
-
-            <!-- Industrial Solutions -->
-            <div class="div4 special-project-card bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border border-orange-100 hover:border-orange-300 transition duration-300">
-                <div class="flex items-center mb-3">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-industry text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg">Промышленные объекты</h3>
-                </div>
-                <p class="text-gray-600 mb-3">Учёт энергоресурсов на производстве, контроль промышленного оборудования, оптимизация энергопотребления</p>
-                <div class="flex items-center text-sm text-orange-600">
-                    <i class="fas fa-cogs mr-2"></i>
-                    <span>24/7 мониторинг производственных линий</span>
-                </div>
-            </div>
-
-            <!-- Smart Parks -->
-            <div class="div5 special-project-card bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border border-green-100 hover:border-green-300 transition duration-300">
-                <div class="flex items-center mb-3">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-tree text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-bold text-lg">Умные парки и зоны отдыха</h3>
-                </div>
-                <p class="text-gray-600 mb-3">Автоматический полив, освещение, Wi-Fi зоны, системы видеонаблюдения, контроль посещаемости</p>
-                <div class="flex items-center text-sm text-green-600">
-                    <i class="fas fa-leaf mr-2"></i>
-                    <span>Экологические системы управления</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-8">
-            <p class="text-gray-600 mb-4">Нужно индивидуальное решение для вашего проекта?</p>
-            <a href="#form-section" class="inline-block bg-secondary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition duration-300">
-                Обсудить проект
+            <a href="#form-section" class="inline-block bg-secondary text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition duration-300 shadow-md">
+                Получить краткую презентацию с примерами
             </a>
         </div>
     </div>
@@ -377,31 +419,38 @@
 <!-- Form Section -->
 <section class="py-12 px-6 bg-primary text-white" id="form-section">
     <div class="max-w-md mx-auto">
-        <h2 class="text-xl font-bold text-center mb-2">Получите расчёт под ваш объект</h2>
-        <p class="text-center text-secondary mb-8">Оставьте контакты, и наш менеджер свяжется с вами в ближайшее время</p>
+        <h2 class="text-xl font-bold text-center mb-2">Запросить предложение под ваш проект</h2>
+        <p class="text-center text-secondary mb-8">Мы поможем подобрать решение — заполните форму ниже</p>
 
-        <form class="space-y-4" id="contactForm">
+        <form class="space-y-4 bg-white bg-opacity-5 p-6 rounded-lg backdrop-blur" id="contactForm">
             <div>
-                <input type="text" id="name" name="name" placeholder="Ваше имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <input type="text" id="name" name="name" placeholder="Имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
                 <p id="name-error" class="text-red-300 text-sm mt-1 hidden">Имя должно содержать минимум 3 буквы</p>
             </div>
             <div>
-                <input type="tel" id="phone" name="phone" placeholder="+7 7__ ___-__-__" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <input type="tel" id="phone" name="phone" placeholder="Телефон" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
                 <p id="phone-error" class="text-red-300 text-sm mt-1 hidden">Введите корректный номер телефона Казахстана</p>
             </div>
             <div>
-                <input type="text" id="comment" name="comment" placeholder="Название проекта (необязательно)" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+                <input type="text" id="company" name="company" placeholder="Компания / проект" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
             </div>
-            <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02]">
+            <div>
+                <input type="text" id="comment" name="comment" placeholder="Комментарий" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
+            </div>
+            <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02] shadow-md">
                 Оставить заявку
             </button>
+            <p class="text-center text-sm text-white text-opacity-70 mt-2 flex items-center justify-center">
+                <i class="far fa-clock mr-2"></i>
+                Мы свяжемся с вами в рабочее время: Пн–Пт, 9:00–18:00
+            </p>
         </form>
     </div>
 </section>
 
 <!-- Success Modal -->
-<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-xl max-w-md w-full mx-auto transform scale-0 opacity-0 transition-all duration-300" id="modal-content">
+<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-xl max-w-md w-full mx-auto transform scale-0 opacity-0 transition-all duration-300 shadow-2xl" id="modal-content">
         <div class="p-8 text-center">
             <div class="mb-6">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
@@ -418,7 +467,7 @@
                 </div>
             </div>
 
-            <button onclick="closeModal()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition duration-300 mb-4">
+            <button onclick="closeModal()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition duration-300 mb-4 shadow-md">
                 Закрыть
             </button>
 
@@ -435,15 +484,15 @@
     <div class="max-w-md max-width-block mx-auto">
         <div class="flex justify-center space-x-6 mb-6">
             <!-- Instagram -->
-            <a href="https://www.instagram.com/waviot.asia/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+            <a href="https://www.instagram.com/waviot.asia/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary transition duration-300">
                 <i class="fab fa-instagram text-xl cursor-pointer"></i>
             </a>
             <!-- WhatsApp -->
-            <a href="https://api.whatsapp.com/send?phone=77011888100" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+            <a href="https://api.whatsapp.com/send?phone=77011888100" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary transition duration-300">
                 <i class="fab fa-whatsapp text-xl cursor-pointer"></i>
             </a>
             <!-- Telegram -->
-            <a href="https://web.telegram.org/k/#@hwylisback" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary">
+            <a href="https://web.telegram.org/k/#@hwylisback" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-secondary transition duration-300">
                 <i class="fab fa-telegram text-xl cursor-pointer"></i>
             </a>
         </div>
@@ -471,7 +520,7 @@
 
 <!-- Sticky CTA Button -->
 <div class="sticky-cta">
-    <button onclick="document.querySelector('form').scrollIntoView({behavior: 'smooth'})" class="bg-secondary hover:bg-teal-400 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 flex items-center">
+    <button onclick="document.querySelector('form').scrollIntoView({behavior: 'smooth'})" class="bg-secondary hover:bg-secondary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 flex items-center">
         <i class="fas fa-phone-alt mr-2"></i>
         <span>Получить консультацию</span>
     </button>
@@ -612,12 +661,14 @@
 
         const nameInput = document.getElementById('name');
         const phoneInput = document.getElementById('phone');
+        const companyInput = document.getElementById('company');
         const commentInput = document.getElementById('comment');
         const nameError = document.getElementById('name-error');
         const phoneError = document.getElementById('phone-error');
 
         const name = nameInput.value.trim();
         const phone = phoneInput.value.trim();
+        const company = companyInput.value.trim();
         const comment = commentInput.value.trim();
 
         let isValid = true;
@@ -659,13 +710,14 @@
                 const payload = {
                     name: name,
                     phone: phone,
+                    company: company,
                     comment: comment
                 };
 
                 console.log('Отправляемые данные:', payload);
 
                 // Замените URL на адрес вашего сервера (для продакшена)
-                const apiUrl = 'https://waviot-b2b-backend.railway.internal/api/amocrm/b2b-lead';
+                const apiUrl = 'https://waviot-b2b-backend-production.up.railway.app/api/amocrm/b2b-lead';
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
