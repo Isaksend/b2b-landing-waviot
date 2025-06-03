@@ -7,6 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X9XB9XG3LB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-X9XB9XG3LB');
+    </script>
     <script>
         tailwind.config = {
             theme: {
@@ -1005,12 +1014,12 @@
 
 
 <!-- Form Section -->
-<section class="py-12 px-6 bg-primary text-white" id="form-section">
-    <div class="max-w-md mx-auto">
-        <h2 class="text-xl font-bold text-center mb-2">Запросить предложение под ваш проект</h2>
+<section class="py-12 md:py-16 px-6 bg-primary text-white" id="form-section">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-bold text-center mb-2">Запросить предложение под ваш проект</h2>
         <p class="text-center text-secondary mb-8">Мы поможем подобрать решение — заполните форму ниже</p>
 
-        <form class="space-y-4 bg-white bg-opacity-5 p-6 rounded-lg backdrop-blur" id="contactForm">
+        <form class="space-y-4 bg-white bg-opacity-5 p-6 md:p-8 rounded-lg backdrop-blur" id="contactForm">
             <div>
                 <input type="text" id="name" name="name" placeholder="Имя" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
                 <p id="name-error" class="text-red-300 text-sm mt-1 hidden">Имя должно содержать минимум 3 буквы</p>
@@ -1025,7 +1034,7 @@
             <div>
                 <input type="text" id="comment" name="comment" placeholder="Комментарий" class="w-full p-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"/>
             </div>
-            <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02] shadow-md">
+            <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02] shadow-md bg-secondary">
                 Оставить заявку
             </button>
             <p class="text-center text-sm text-white text-opacity-70 mt-2 flex items-center justify-center">
@@ -1066,7 +1075,6 @@
         </div>
     </div>
 </div>
-
 <!-- Footer -->
 <footer class="py-8 px-6 bg-gray-900 text-white text-sm">
     <div class="max-w-md max-width-block mx-auto">
@@ -1113,98 +1121,8 @@
         <span>Получить консультацию</span>
     </button>
 </div>
-
+<script src="waviot-lead-tracker.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Маска и валидация для телефона
-        const phoneInput = document.getElementById('phone');
-        const nameInput = document.getElementById('name');
-        const nameError = document.getElementById('name-error');
-        const phoneError = document.getElementById('phone-error');
-
-        // Name validation - поддерживает кириллицу и казахские буквы
-        function validateName(name) {
-            const trimmedName = name.trim();
-            // Поддержка русского и казахского алфавита
-            const letterCount = (trimmedName.match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
-            return letterCount >= 3;
-        }
-
-        nameInput.addEventListener('input', function() {
-            // Удаляем цифры и спецсимволы, но оставляем все буквы, включая казахские
-            this.value = this.value.replace(/[0-9!@#$%^&*(),.?":{}|<>_+=~`[\]\\/-]/g, '');
-
-            if (this.value.length > 0 && !validateName(this.value)) {
-                nameError.classList.remove('hidden');
-                this.classList.add('border-red-300');
-            } else {
-                nameError.classList.add('hidden');
-                this.classList.remove('border-red-300');
-            }
-        });
-
-        // Phone validation - проверяем, что это именно казахстанский номер
-        function validatePhone(phone) {
-            const cleanPhone = phone.replace(/\D/g, '');
-            // Проверяем, что номер начинается с 7 и имеет 11 цифр (казахстанский формат)
-            // И что цифра после 7 - это коды операторов Казахстана
-            const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78'];
-            const operatorCode = cleanPhone.substring(0, 2);
-            return cleanPhone.length === 11 && cleanPhone.startsWith('7') && kazOperatorCodes.includes(operatorCode);
-        }
-
-        phoneInput.addEventListener('focus', function() {
-            if (!this.value) {
-                this.value = '+7 ';
-            }
-        });
-
-        phoneInput.addEventListener('input', function() {
-            let value = this.value;
-            value = value.replace(/[^\d+]/g, '');
-
-            if (value.length < 2) {
-                value = '+7';
-            }
-
-            if (!value.startsWith('+7')) {
-                value = '+7' + value.replace(/^[+]?7*/g, '');
-            }
-
-            let formattedValue = '+7 ';
-            let numbers = value.slice(2);
-
-            if (numbers.length > 0) {
-                formattedValue += numbers.slice(0, 3);
-            }
-            if (numbers.length > 3) {
-                formattedValue += ' ' + numbers.slice(3, 6);
-            }
-            if (numbers.length > 6) {
-                formattedValue += '-' + numbers.slice(6, 8);
-            }
-            if (numbers.length > 8) {
-                formattedValue += '-' + numbers.slice(8, 10);
-            }
-
-            this.value = formattedValue;
-
-            if (!validatePhone(formattedValue)) {
-                phoneError.classList.remove('hidden');
-                this.classList.add('border-red-300');
-            } else {
-                phoneError.classList.add('hidden');
-                this.classList.remove('border-red-300');
-            }
-        });
-
-        phoneInput.addEventListener('keydown', function(e) {
-            if ((e.key === 'Backspace' || e.key === 'Delete') && this.value.length <= 3) {
-                e.preventDefault();
-            }
-        });
-    });
-
 
     // Show success modal
     function showSuccessModal() {
@@ -1220,6 +1138,9 @@
             modalContent.classList.add('scale-100');
             modalContent.classList.add('opacity-100');
         }, 10);
+
+        // Блокируем прокрутку страницы при открытом модальном окне
+        document.body.style.overflow = 'hidden';
     }
 
     // Close modal
@@ -1235,122 +1156,208 @@
         setTimeout(() => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+
+            // Разрешаем прокрутку страницы при закрытом модальном окне
+            document.body.style.overflow = '';
         }, 300);
     }
 
-    document.getElementById('success-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
-
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const nameInput = document.getElementById('name');
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Валидация и форматирование полей ---
         const phoneInput = document.getElementById('phone');
-        const companyInput = document.getElementById('company');
-        const commentInput = document.getElementById('comment');
+        const nameInput = document.getElementById('name');
         const nameError = document.getElementById('name-error');
         const phoneError = document.getElementById('phone-error');
 
-        const name = nameInput.value.trim();
-        const phone = phoneInput.value.trim();
-        const company = companyInput.value.trim();
-        const comment = commentInput.value.trim();
-
-        let isValid = true;
-
-        // Валидация имени
-        const letterCount = (name.match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
-        if (letterCount < 3) {
-            nameError.classList.remove('hidden');
-            nameInput.classList.add('border-red-300');
-            isValid = false;
-        } else {
-            nameError.classList.add('hidden');
-            nameInput.classList.remove('border-red-300');
+        // Name validation (из вашего кода)
+        function validateName(name) {
+            const trimmedName = name.trim();
+            const letterCount = (trimmedName.match(/[a-zA-Zа-яА-ЯӘәІіҢңҒғҮүҰұҚқӨөҺһ]/g) || []).length;
+            return letterCount >= 3;
         }
 
-        // Валидация телефона
-        const cleanPhone = phone.replace(/\D/g, '');
-        const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78'];
-        const operatorCode = cleanPhone.substring(0, 2);
-
-        if (cleanPhone.length !== 11 || !cleanPhone.startsWith('7') || !kazOperatorCodes.includes(operatorCode)) {
-            phoneError.classList.remove('hidden');
-            phoneInput.classList.add('border-red-300');
-            isValid = false;
-        } else {
-            phoneError.classList.add('hidden');
-            phoneInput.classList.remove('border-red-300');
-        }
-
-        if (isValid) {
-            // Показываем состояние загрузки (можно добавить индикатор)
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.innerHTML = 'Отправка...';
-            submitButton.disabled = true;
-
-            try {
-                // Подготовка данных для отправки
-                const payload = {
-                    name: name,
-                    phone: phone,
-                    company: company,
-                    comment: comment
-                };
-
-                console.log('Отправляемые данные:', payload);
-
-                // Замените URL на адрес вашего сервера (для продакшена)
-                const apiUrl = 'https://waviot-b2b-backend-production.up.railway.app/api/amocrm/b2b-lead';
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                console.log('Статус ответа:', response.status);
-
-                // Получаем и обрабатываем ответ
-                const responseText = await response.text();
-                console.log('Ответ сервера:', responseText);
-
-                let result;
-                try {
-                    if (responseText) {
-                        result = JSON.parse(responseText);
-                    } else {
-                        throw new Error('Пустой ответ от сервера');
-                    }
-                } catch (e) {
-                    console.error('Ошибка парсинга ответа:', e);
-                    throw new Error('Не удалось обработать ответ сервера');
-                }
-
-                if (result.success) {
-                    // Показываем сообщение об успехе (можно заменить на модальное окно)
-                    showSuccessModal()
-                    // Сбрасываем форму
-                    this.reset();
+        if (nameInput) { // Проверка, что элемент существует
+            nameInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[0-9!@#$%^&*(),.?":{}|<>_+=~`[\]\\/-]/g, '');
+                if (this.value.length > 0 && !validateName(this.value)) {
+                    if(nameError) nameError.classList.remove('hidden');
+                    this.classList.add('border-red-300');
                 } else {
-                    throw new Error(result.message || 'Ошибка при отправке заявки');
+                    if(nameError) nameError.classList.add('hidden');
+                    this.classList.remove('border-red-300');
                 }
-            } catch (err) {
-                console.error('Ошибка:', err);
-                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже или свяжитесь с нами по телефону.');
-            } finally {
-                // Возвращаем кнопку в исходное состояние
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-            }
+            });
         }
-    });
+
+        // Phone validation (из вашего кода)
+        function validatePhone(phone) {
+            const cleanPhone = phone.replace(/\D/g, '');
+            const kazOperatorCodes = ['71', '72', '73', '74', '75', '76', '77', '78']; // Коды из вашего скрипта
+            const operatorCode = cleanPhone.substring(1, 3); // Если cleanPhone это "777...", то код оператора "77" это [1] и [2] индексы
+            return cleanPhone.length === 11 && cleanPhone.startsWith('7') && kazOperatorCodes.includes(cleanPhone.substring(1,2)+cleanPhone.substring(2,3)); // Исправлено для кодов вида '71'
+        }
+
+        if (phoneInput) { // Проверка, что элемент существует
+            phoneInput.addEventListener('focus', function() {
+                if (!this.value) { this.value = '+7 '; }
+            });
+
+            phoneInput.addEventListener('input', function() {
+                let value = this.value.replace(/[^\d+]/g, '');
+                if (!value.startsWith('+7')) { value = '+7' + value.replace(/^\+?7?/, ''); }
+                if (value.length < 2) { value = '+7'; }
+
+                let numbers = value.slice(2).replace(/\D/g, '');
+                let formattedValue = '+7 ('; // Изменен формат для удобства
+
+                if (numbers.length > 0) { formattedValue += numbers.substring(0, 3); }
+                if (numbers.length >= 3) { formattedValue += ') '; }
+                if (numbers.length > 3) { formattedValue += numbers.substring(3, 6); }
+                if (numbers.length > 6) { formattedValue += '-' + numbers.substring(6, 8); }
+                if (numbers.length > 8) { formattedValue += '-' + numbers.substring(8, 10); }
+
+                this.value = formattedValue.substring(0, 18);
+
+                if (this.value.length > 4 && !validatePhone(this.value.replace(/[^\d]/g, ''))) { // Валидируем очищенный номер
+                    if(phoneError) phoneError.classList.remove('hidden');
+                    this.classList.add('border-red-300');
+                } else {
+                    if(phoneError) phoneError.classList.add('hidden');
+                    this.classList.remove('border-red-300');
+                }
+            });
+
+            phoneInput.addEventListener('keydown', function(e) {
+                const cursorPosition = this.selectionStart;
+                if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPosition <= 4 && this.value.length <=4) {
+                    e.preventDefault();
+                }
+                if (this.value.length >= 18 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'].includes(e.key) ) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // --- Обработчики для модальных окон (success-modal и project-modal) ---
+        const successModal = document.getElementById('success-modal');
+        if (successModal) {
+            successModal.addEventListener('click', function(e) {
+                if (e.target === this) { closeModal(); }
+            });
+        }
+
+        const projectModalElement = document.getElementById('project-modal');
+        if (projectModalElement) {
+            projectModalElement.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeProjectModal();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (successModal && !successModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+                if (projectModalElement && !projectModalElement.classList.contains('hidden')) {
+                    closeProjectModal();
+                }
+
+            }
+        });
+
+        // --- Обработчик отправки формы ---
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) { // Проверка, что форма существует
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const currentNameInput = document.getElementById('name');
+                const currentPhoneInput = document.getElementById('phone');
+                const companyInput = document.getElementById('company');
+                const commentInput = document.getElementById('comment');
+
+                const name = currentNameInput.value.trim();
+                const phone = currentPhoneInput.value.trim(); // Телефон уже должен быть отформатирован
+                const company = companyInput.value.trim();
+                const originalComment = commentInput.value.trim();
+
+                let isValid = true;
+
+                if (!validateName(name)) {
+                    if(nameError) nameError.classList.remove('hidden');
+                    if(currentNameInput) currentNameInput.classList.add('border-red-300');
+                    isValid = false;
+                } else {
+                    if(nameError) nameError.classList.add('hidden');
+                    if(currentNameInput) currentNameInput.classList.remove('border-red-300');
+                }
+
+                if (!validatePhone(phone.replace(/[^\d]/g, ''))) { // Валидируем очищенный номер
+                    if(phoneError) phoneError.classList.remove('hidden');
+                    if(currentPhoneInput) currentPhoneInput.classList.add('border-red-300');
+                    isValid = false;
+                } else {
+                    if(phoneError) phoneError.classList.add('hidden');
+                    if(currentPhoneInput) currentPhoneInput.classList.remove('border-red-300');
+                }
+
+                if (isValid) {
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.innerHTML;
+                    submitButton.innerHTML = 'Отправка... <i class="fas fa-spinner fa-spin ml-2"></i>';
+                    submitButton.disabled = true;
+
+                    try {
+                        const formDataForTracker = {
+                            name: name,
+                            phone: phone // Передаем отформатированный телефон
+                        };
+
+                        let commentForAmo = '';
+                        if (company) {
+                            commentForAmo += `Компания: ${company}\n`;
+                        }
+                        if (originalComment) {
+                            commentForAmo += `Комментарий клиента: ${originalComment}`;
+                        }
+                        formDataForTracker.comment = commentForAmo.trim();
+
+                        const customTags = {
+                            landing_page_tag: 'лендинг спец. проекты'
+                        };
+
+                        if (typeof WaviotLeadTracker === 'undefined' || typeof WaviotLeadTracker.submitLead !== 'function') {
+                            console.error('WaviotLeadTracker не загружен или функция submitLead отсутствует!');
+                            throw new Error('Ошибка конфигурации отслеживания лидов. Трекер не найден.');
+                        }
+
+                        console.log('Отправка данных через WaviotLeadTracker (Лендинг спец проект):', formDataForTracker, customTags);
+                        const result = await WaviotLeadTracker.submitLead(formDataForTracker, customTags);
+                        console.log('Ответ от WaviotLeadTracker.submitLead (Лендинг спец проект):', result);
+
+                        if (result && result.success) {
+                            showSuccessModal();
+                            this.reset();
+                            if(currentNameInput) currentNameInput.classList.remove('border-red-300');
+                            if(currentPhoneInput) currentPhoneInput.classList.remove('border-red-300');
+                        } else {
+                            const errorMessage = result && result.message ? result.message : 'Неизвестная ошибка при отправке заявки.';
+                            throw new Error(errorMessage);
+                        }
+
+                    } catch (err) {
+                        console.error('Ошибка при отправке через WaviotLeadTracker (Спец проекты):', err);
+                        alert(`Произошла ошибка: ${err.message}. Пожалуйста, попробуйте позже или свяжитесь с нами.`);
+                    } finally {
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                    }
+                }
+            });
+        } // конец if (contactForm)
+    }); // конец DOMContentLoaded
 </script>
 </body>
 </html>
